@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuController extends JFrame implements ActionListener {
-    JButton cn1_2, cn3, cn4, cn5, cn6, cn7, cn8, cn9_10;
+    JButton cn0, cn1_2, cn3, cn4, cn5, cn6, cn7, cn8, cn9_10;
 
     MenuController() {
 
@@ -15,6 +15,7 @@ public class MenuController extends JFrame implements ActionListener {
         label.setAlignmentX(CENTER_ALIGNMENT);
 
         //Buttons
+		cn0 = createButton("List Lang Word");
         cn1_2 = createButton("Find Slang Word");
         cn3 = createButton("History");
         cn4 = createButton("Add Slang Word");
@@ -71,7 +72,6 @@ public class MenuController extends JFrame implements ActionListener {
 				e1.printStackTrace();
 			}
 		} else if (e.getSource() == cn3) {
-			System.out.println("Change Actitity");
 			this.dispose();
 			try {
 				new History();
