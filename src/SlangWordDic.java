@@ -7,7 +7,7 @@ public class SlangWordDic {
 	private TreeMap<String, List<String>> treemap = new TreeMap<>();
 	private static SlangWordDic slw = new SlangWordDic();
 	private int sizeTree;
-	private String FILE_Slang_Word = "slang_data\\slang.txt";
+	private String FILE_Slang_Word = "slangword_data\\slang.txt";
 	private String FILE_History = "history.txt";
 
 	// Hàm tạo của lớp SlangWordDic
@@ -15,12 +15,10 @@ public class SlangWordDic {
 		try {
 			// path tới thư mục hiện tại
 			String current_path = new java.io.File(".").getCanonicalPath();
-			System.out.println("Current dir:" + current_path);
 			FILE_Slang_Word = current_path + '\\' + FILE_Slang_Word;
 			readFile(FILE_Slang_Word);
 		} catch (Exception e) {
 			e.printStackTrace();
-			;
 		}
 	}
 
@@ -36,66 +34,50 @@ public class SlangWordDic {
 		return slw;
 	}
 
+	// Hàm lưu file
 	void saveFile(String file) {
-		try {
-			PrintWriter printWriter = new PrintWriter(new File(file));
-			StringBuilder stringBuilder = new StringBuilder();
-
-			stringBuilder.append("Slag`Meaning\n");
-			String s[][] = new String[treemap.size()][3];
-			Set<String> keySet = treemap.keySet();
-			Object[] keyArray = keySet.toArray();
-			for (int i = 0; i < treemap.size(); i++) {
-				Integer in = i + 1;
-				s[i][0] = in.toString();
-				s[i][1] = (String) keyArray[i];
-				List<String> meaning = treemap.get(keyArray[i]);
-				stringBuilder.append(s[i][1] + "`" + meaning.get(0));
-				for (int j = 1; j < meaning.size(); j++) {
-					stringBuilder.append("|" + meaning.get(j));
-				}
-				stringBuilder.append("\n");
+		try (PrintWriter printWriter = new PrintWriter(new File(file))) {
+			printWriter.println("Slang`Meaning");
+			int index = 1;
+			for (Map.Entry<String, List<String>> entry : treemap.entrySet()) {
+				String slangWord = entry.getKey();
+				List<String> meanings = entry.getValue();
+				String meaningLine = String.join("|", meanings);
+				printWriter.printf("%d`%s`%s%n", index, slangWord, meaningLine);
+				index++;
 			}
-			// System.out.println(stringBuilder.toString());
-			printWriter.write(stringBuilder.toString());
-			printWriter.close();
-
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
+	
 
+	// Hàm đọc file
 	void readFile(String file) throws Exception {
 		treemap.clear();
-		Scanner scanner = new Scanner(new File(file));
-		scanner.useDelimiter("`");
-		scanner.next(); // Bỏ qua dòng tiêu đề
-		String line = scanner.next();
-		String[] part = line.split("\n");
-		String slword = null;
-		int i = 0;
 		sizeTree = 0;
-		while (scanner.hasNext()) {
-			List<String> meaning = new ArrayList<String>();
-			slword = part[1].trim(); // Loai bỏ khoảng trắng
-			line = scanner.next();
-			part = line.split("\n");
-			if (treemap.containsKey(slword)) { // check tồn tại slang word chưa
-				meaning = treemap.get(slword);
+	
+		try (Scanner scanner = new Scanner(new File(file)).useDelimiter("`")) {
+			scanner.next(); // Bỏ qua dòng tiêu đề
+			while (scanner.hasNext()) {
+				String[] parts = scanner.next().split("\n");
+				String slangWord = parts[1].trim(); // Loại bỏ khoảng trắng
+				List<String> meanings = treemap.getOrDefault(slangWord, new ArrayList<>());
+	
+				if (parts[0].contains("|")) {
+					String[] definitions = parts[0].split("\\|");
+					Collections.addAll(meanings, definitions);
+					sizeTree += definitions.length - 1;
+				} else {
+					meanings.add(parts[0]);
+				}
+	
+				treemap.put(slangWord, meanings);
+				sizeTree++;
 			}
-			if (part[0].contains("|")) {
-				String[] d = (part[0]).split("\\|");
-				Collections.addAll(meaning, d);
-				sizeTree += d.length - 1;
-			} else {
-				meaning.add(part[0]);
-			}
-			treemap.put(slword, meaning);
-			i++;
-			sizeTree++;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		scanner.close();
 	}
 
 	public String[][] getData() {
@@ -120,20 +102,22 @@ public class SlangWordDic {
 		return s;
 	}
 
+	// Hàm lưu lịch sử tìm kiếm
 	public void saveHistory(String slag, String meaning) throws Exception {
 		FileWriter fr = new FileWriter(new File(FILE_History), true);
 		fr.write(slag + "`" + meaning + "\n");
 		fr.close();
 	}
 
+	// Hàm edit giá trị
 	public void set(String slag, String oldValue, String newValue) {
 		List<String> meaning = treemap.get(slag);
 		int index = meaning.indexOf(oldValue);
 		meaning.set(index, newValue);
 		this.saveFile(FILE_Slang_Word);
-		// System.out.println("Size of map: " + sizeTree);
 	}
 
+	// Tìm kiếm theo slang word
 	public String[][] findByMean(String key) {
 		List<String> meaning = treemap.get(key);
 		if (meaning == null)
@@ -148,6 +132,7 @@ public class SlangWordDic {
 		return s;
 	}
 
+	// Tìm kiếm theo defination
 	public String[][] findByDef(String query) {
 		List<String> keyL = new ArrayList<>();
 		List<String> meaningL = new ArrayList<>();
@@ -171,4 +156,52 @@ public class SlangWordDic {
 		return s;
 	}
 
+	// Hàm đọc history
+	public String[][] readHistory() {
+		List<String> historySlag = new ArrayList<>();
+		List<String> historyDefinition = new ArrayList<>();
+		try {
+			Scanner scanner = new Scanner(new File(FILE_History));
+			scanner.useDelimiter("`");
+			String line = scanner.next();
+			String[] temp = scanner.next().split("\n");
+			historySlag.add(line);
+			historyDefinition.add(temp[0]);
+			while (scanner.hasNext()) {
+				line = temp[1];
+				temp = scanner.next().split("\n");
+				historySlag.add(line);
+				historyDefinition.add(temp[0]);
+			}
+			scanner.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		int size = historySlag.size();
+		String s[][] = new String[size][3];
+		for (int i = 0; i < size; i++) {
+			s[size - i - 1][0] = String.valueOf(size - i);
+			s[size - i - 1][1] = historySlag.get(i);
+			s[size - i - 1][2] = historyDefinition.get(i);
+		}
+		return s;
+	}
+	
+	public void clearHistory() {
+		File historyFile = new File(FILE_History);
+	
+		if (historyFile.exists()) {
+			try {
+				FileWriter fileWriter = new FileWriter(historyFile, false); // Mở file để ghi và ghi đè nội dung
+				fileWriter.write(""); // Ghi nội dung rỗng vào file
+				fileWriter.close();
+				System.out.println("Dữ liệu trong file lịch sử đã bị xóa.");
+			} catch (IOException e) {
+				System.out.println("Lỗi: " + e.getMessage());
+			}
+		} else {
+			System.out.println("File lịch sử không tồn tại.");
+		}
+	}
 }
+
