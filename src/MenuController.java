@@ -61,13 +61,11 @@ public class MenuController extends JFrame implements ActionListener {
 
     @Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getSource() == cn1_2) {
 			this.dispose();
 			try {
 				new FindSlangWord();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		} else if (e.getSource() == cn3) {
@@ -75,7 +73,6 @@ public class MenuController extends JFrame implements ActionListener {
 			try {
 				new History();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
@@ -85,7 +82,6 @@ public class MenuController extends JFrame implements ActionListener {
 			try {
 				new AddSlangWord();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
@@ -94,7 +90,6 @@ public class MenuController extends JFrame implements ActionListener {
 			try {
 				new EditSlangWord();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
@@ -103,7 +98,6 @@ public class MenuController extends JFrame implements ActionListener {
 			try {
 				new DeleteSlangWord();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
@@ -114,7 +108,6 @@ public class MenuController extends JFrame implements ActionListener {
 			try {
 				new RandomSlangWord();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		} else if (e.getSource() == cn9_10) {
@@ -122,7 +115,6 @@ public class MenuController extends JFrame implements ActionListener {
             try {
 				new Quiz();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
