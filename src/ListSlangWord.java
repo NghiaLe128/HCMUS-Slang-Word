@@ -93,7 +93,6 @@ public class ListSlangWord extends JFrame implements ActionListener, TableModelL
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getSource() == btnBack) {
 			this.dispose();
 			new MenuController();
@@ -102,13 +101,10 @@ public class ListSlangWord extends JFrame implements ActionListener, TableModelL
 
 	@Override
 	public void tableChanged(TableModelEvent e) {
-		// TODO Auto-generated method stub
 		int row = jt.getSelectedRow();
 		int col = jt.getSelectedColumn();
 		if (row == -1 || col == -1)
 			return;
-		String Data = (String) jt.getValueAt(row, col);
-		// System.out.println("Table element selected is: " + Data);
 
 		if (col == 2) {
 			// edit meaning
