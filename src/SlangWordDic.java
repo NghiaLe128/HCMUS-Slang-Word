@@ -7,7 +7,8 @@ public class SlangWordDic {
 	private TreeMap<String, List<String>> treemap = new TreeMap<>();
 	private static SlangWordDic slw = new SlangWordDic();
 	private int sizeTree;
-	private String FILE_Slang_Word = "slangword_data\\slang.txt";
+	private String SLANG_ORIGIN = "slangword_data\\slang.txt";
+	private String SLANG_NEW = "slangword_data\\newslang.txt";
 	private String FILE_History = "history.txt";
 
 	// Hàm tạo của lớp SlangWordDic
@@ -15,8 +16,9 @@ public class SlangWordDic {
 		try {
 			// path tới thư mục hiện tại
 			String current_path = new java.io.File(".").getCanonicalPath();
-			FILE_Slang_Word = current_path + '\\' + FILE_Slang_Word;
-			readFile(FILE_Slang_Word);
+			SLANG_NEW = current_path + '\\' + SLANG_NEW;
+			SLANG_ORIGIN = current_path + '\\' + SLANG_ORIGIN;
+			readFile(SLANG_NEW);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -34,49 +36,64 @@ public class SlangWordDic {
 		return slw;
 	}
 
-	// Hàm lưu file
-	void saveFile(String file) {
-		try (PrintWriter printWriter = new PrintWriter(new File(file))) {
-			printWriter.println("Slang`Meaning");
-			int index = 1;
-			for (Map.Entry<String, List<String>> entry : treemap.entrySet()) {
-				String slangWord = entry.getKey();
-				List<String> meanings = entry.getValue();
-				String meaningLine = String.join("|", meanings);
-				printWriter.printf("%d`%s`%s%n", index, slangWord, meaningLine);
-				index++;
+	// // Hàm đọc file
+	void readFile(String file) throws Exception {
+		treemap.clear();
+		sizeTree = 0;
+	
+		try (Scanner scanner = new Scanner(new File(file))) {
+			scanner.useDelimiter("\n"); // Sử dụng "\n" thay vì "`" để tách nghĩa
+			scanner.nextLine(); // Bỏ qua dòng tiêu đề
+	
+			while (scanner.hasNext()) {
+				String[] parts = scanner.next().split("`");
+				if (parts.length >= 2) {
+					String slangWord = parts[0].trim();
+					List<String> meanings = treemap.getOrDefault(slangWord, new ArrayList<>());
+	
+					if (parts[1].contains("|")) {
+						String[] definitions = parts[1].split("\\|");
+						Collections.addAll(meanings, definitions);
+						sizeTree += definitions.length - 1;
+					} else {
+						meanings.add(parts[1]);
+					}
+	
+					treemap.put(slangWord, meanings);
+					sizeTree++;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	// Hàm lưu file
+	void saveFile(String file) {
+		try {
+			PrintWriter printWriter = new PrintWriter(new File(file));
+			StringBuilder stringBuilder = new StringBuilder();
 
-	// Hàm đọc file
-	void readFile(String file) throws Exception {
-		treemap.clear();
-		sizeTree = 0;
-	
-		try (Scanner scanner = new Scanner(new File(file)).useDelimiter("`")) {
-			scanner.next(); // Bỏ qua dòng tiêu đề
-			while (scanner.hasNext()) {
-				String[] parts = scanner.next().split("\n");
-				String slangWord = parts[1].trim(); // Loại bỏ khoảng trắng
-				List<String> meanings = treemap.getOrDefault(slangWord, new ArrayList<>());
-	
-				if (parts[0].contains("|")) {
-					String[] definitions = parts[0].split("\\|");
-					Collections.addAll(meanings, definitions);
-					sizeTree += definitions.length - 1;
-				} else {
-					meanings.add(parts[0]);
+			stringBuilder.append("Slag`Meaning\n");
+			String s[][] = new String[treemap.size()][3];
+			Set<String> keySet = treemap.keySet();
+			Object[] keyArray = keySet.toArray();
+			for (int i = 0; i < treemap.size(); i++) {
+				Integer in = i + 1;
+				s[i][0] = in.toString();
+				s[i][1] = (String) keyArray[i];
+				List<String> meaning = treemap.get(keyArray[i]);
+				stringBuilder.append(s[i][1] + "`" + meaning.get(0));
+				for (int j = 1; j < meaning.size(); j++) {
+					stringBuilder.append("|" + meaning.get(j));
 				}
-	
-				treemap.put(slangWord, meanings);
-				sizeTree++;
+				stringBuilder.append("\n");
 			}
+			printWriter.write(stringBuilder.toString());
+			printWriter.close();
+
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e);
 		}
 	}
 
@@ -114,11 +131,11 @@ public class SlangWordDic {
 		List<String> meaning = treemap.get(slag);
 		int index = meaning.indexOf(oldValue);
 		meaning.set(index, newValue);
-		this.saveFile(FILE_Slang_Word);
+		this.saveFile(SLANG_NEW);
 	}
 
 	// Tìm kiếm theo slang word
-	public String[][] findByMean(String key) {
+	public String[][] findByWord(String key) {
 		List<String> meaning = treemap.get(key);
 		if (meaning == null)
 			return null;
@@ -187,6 +204,7 @@ public class SlangWordDic {
 		return s;
 	}
 	
+	// Xoá lịch sử tìm kiếm
 	public void clearHistory() {
 		File historyFile = new File(FILE_History);
 	
@@ -203,5 +221,51 @@ public class SlangWordDic {
 			System.out.println("File lịch sử không tồn tại.");
 		}
 	}
+
+	public void editSlangWord(String oldSlang, String newSlang) {
+		if (treemap.containsKey(oldSlang)) {
+			List<String> meanings = treemap.get(oldSlang);
+			treemap.remove(oldSlang); // Xóa Slang Word cũ
+			treemap.put(newSlang, meanings); // Thêm Slang Word mới với cùng nghĩa
+			this.saveFile(SLANG_NEW); // Lưu thay đổi vào tệp
+			System.out.println("Edit successful. Slang word updated.");
+		} else {
+			System.out.println("Slang word not found.");
+		}
+	}
+	
+	public void editDefinition(String slang, String oldMeaning, String newMeaning) {
+		if (treemap.containsKey(slang)) {
+			List<String> meanings = treemap.get(slang);
+			for (int i = 0; i < meanings.size(); i++) {
+				String meaning = meanings.get(i).trim().toLowerCase(); // Chuyển đổi thành chữ thường và loại bỏ khoảng trắng
+				if (meaning.equals(oldMeaning.trim().toLowerCase())) {
+					meanings.set(i, newMeaning);
+					saveFile(SLANG_NEW);
+					System.out.println("Edit successful. Definition updated.");
+					return;
+				}
+			}
+			System.out.println("Old meaning not found.");
+		} else {
+			System.out.println("Slang word not found.");
+		}
+	}
+	
+	public boolean checkExists(String slag) {
+		return treemap.containsKey(slag);
+	}
+	
+	public void addSlangWord(String slang, String meaning, boolean overwrite) {
+		List<String> meaningList = treemap.get(slang);
+		if (meaningList == null || overwrite) {
+			meaningList = new ArrayList<>();
+		}
+		meaningList.add(meaning);
+		treemap.put(slang, meaningList);
+		sizeTree++;
+		this.saveFile(SLANG_NEW);
+	}
+	
 }
 

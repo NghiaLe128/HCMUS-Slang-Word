@@ -147,11 +147,16 @@ public class FindSlangWord extends JFrame implements ActionListener, TableModelL
 	private String[][] performSearch(String key, int searchMode) {
 		this.clearTable();
 		long startTime = System.currentTimeMillis();
-		String[][] searchResult = (searchMode == 0) ? slangWord.findByMean(key) : slangWord.findByDef(key);
+		String[][] searchResult = (searchMode == 0) ? slangWord.findByWord(key) : slangWord.findByDef(key);
 		long endTime = System.currentTimeMillis();
 		long timeElapsed = endTime - startTime;
-		titleLabel.setText("Execution time in milliseconds(" + searchResult.length + " Results ): "
+		if(searchResult!=null){
+			titleLabel.setText("Execution time in milliseconds(" + searchResult.length + " Results ): "
 				+ String.valueOf(timeElapsed) + " ms");
+		}
+		else{
+			titleLabel.setText("Can't not find that slangWord");
+		}
 		return searchResult;
 	}
 
