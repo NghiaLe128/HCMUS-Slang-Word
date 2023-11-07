@@ -1,6 +1,5 @@
 Slag`Meaning
 #1`Number one
-#2`Number two|Numberr Twooo
 $`Dollar| money
 $_$`Has money
 %)`Drunk| giddy

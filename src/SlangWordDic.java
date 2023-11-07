@@ -1,7 +1,6 @@
 import java.util.*;
 import java.io.*;
 import java.util.Map.Entry;
-import javax.swing.*;
 
 public class SlangWordDic {
 	private TreeMap<String, List<String>> treemap = new TreeMap<>();
@@ -98,25 +97,30 @@ public class SlangWordDic {
 	}
 
 	public String[][] getData() {
-		String s[][] = new String[sizeTree][3];
-		Set<String> slagListSet = treemap.keySet();
-		Object[] slagList = slagListSet.toArray();
-		int index = 0;
-		for (int i = 0; i < sizeTree; i++) {
-			s[i][0] = String.valueOf(i);
-			s[i][1] = (String) slagList[index];
-			List<String> meaning = treemap.get(slagList[index]);
-			s[i][2] = meaning.get(0);
-			for (int j = 1; j < meaning.size(); j++) {
-				if (i < sizeTree)
-					i++;
-				s[i][0] = String.valueOf(i);
-				s[i][1] = (String) slagList[index];
-				s[i][2] = meaning.get(j);
+		String[][] data = new String[sizeTree][3];
+		int rowIndex = 0;
+	
+		for (Map.Entry<String, List<String>> entry : treemap.entrySet()) {
+			String slang = entry.getKey();
+			List<String> meanings = entry.getValue();
+	
+			for (String meaning : meanings) {
+				data[rowIndex][0] = String.valueOf(rowIndex);
+				data[rowIndex][1] = slang;
+				data[rowIndex][2] = meaning;
+				rowIndex++;
+	
+				if (rowIndex >= sizeTree) {
+					break;
+				}
 			}
-			index++;
+	
+			if (rowIndex >= sizeTree) {
+				break;
+			}
 		}
-		return s;
+	
+		return data;
 	}
 
 	// Hàm lưu lịch sử tìm kiếm
@@ -265,6 +269,47 @@ public class SlangWordDic {
 		treemap.put(slang, meaningList);
 		sizeTree++;
 		this.saveFile(SLANG_NEW);
+	}
+	
+	public void delete(String slang, String meaning) {
+		List<String> meaningList = treemap.get(slang);
+		if (meaningList != null) {
+			if (meaningList.remove(meaning)) {
+				if (meaningList.isEmpty()) {
+					treemap.remove(slang);
+				}
+				sizeTree--;
+				this.saveFile(SLANG_NEW);
+			}
+		}
+	}
+	
+	public void reset() throws Exception {
+		readFile(SLANG_ORIGIN);
+		this.saveFile(SLANG_NEW);
+	}
+	
+	public String[] random() {
+		// Random a number
+		int maximum = treemap.size();
+		int rand = randInt(0, maximum);
+	
+		// Get slang meaning
+		String s[] = new String[2];
+		int index = 0;
+		for (Map.Entry<String, List<String>> entry : treemap.entrySet()) {
+			if (index == rand) {
+				s[0] = entry.getKey();
+				s[1] = entry.getValue().get(0);
+				break;
+			}
+			index++;
+		}
+		return s;
+	}
+	
+	public static int randInt(int minimum, int maximum) {
+		return (minimum + (int) (Math.random() * maximum));
 	}
 	
 }
