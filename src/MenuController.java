@@ -102,6 +102,12 @@ public class MenuController extends JFrame implements ActionListener {
 			}
 
 		} else if (e.getSource() == cn7) {
+			this.dispose();
+			try {
+				new Reset();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 			
 		} else if (e.getSource() == cn8) {
 			this.dispose();
