@@ -311,6 +311,33 @@ public class SlangWordDic {
 	public static int randInt(int minimum, int maximum) {
 		return (minimum + (int) (Math.random() * maximum));
 	}
+	public String[] quiz(int type) {
+		String s[] = new String[6];
+		String[] slangRandom = this.random();
+		
+		if (type == 1) {
+			s[0] = slangRandom[0];
+		} else {
+			s[0] = slangRandom[1];
+		}
+	
+		int rand = randInt(1, 4);
+		s[rand] = slangRandom[1];
+		s[5] = slangRandom[1];
+	
+		for (int i = 1; i <= 4; i++) {
+			if (rand == i) {
+				continue;
+			}
+			String[] slangRand = this.random();
+			while (slangRand[0].equals(s[0])) {
+				slangRand = this.random();
+			}
+			s[i] = slangRand[1];
+		}
+	
+		return s;
+	}
 	
 }
 
