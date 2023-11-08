@@ -119,7 +119,7 @@ public class MenuController extends JFrame implements ActionListener {
 		} else if (e.getSource() == cn9_10) {
 			this.dispose();
             try {
-				new Quiz();
+				new QuizFrame();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
