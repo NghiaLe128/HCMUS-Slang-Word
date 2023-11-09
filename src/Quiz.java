@@ -72,7 +72,7 @@ public class Quiz extends JFrame implements ActionListener {
         contentPanel.add(buttonPanel);
         add(contentPanel);
 
-        currentQuestionIndex = 0; // Initialize the current question index
+        currentQuestionIndex = 0;
 
         setVisible(true);
     }
@@ -146,8 +146,8 @@ public class Quiz extends JFrame implements ActionListener {
         questionLabel.setHorizontalAlignment(JLabel.CENTER);
         
         JPanel contentPanel = (JPanel) getContentPane().getComponent(0);
-        contentPanel.remove(1); // Remove the previous questionLabel
-        contentPanel.add(questionLabel, 1); // Add the new questionLabel
+        contentPanel.remove(1); 
+        contentPanel.add(questionLabel, 1); 
         revalidate();
         repaint();
 

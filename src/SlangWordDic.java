@@ -8,7 +8,7 @@ public class SlangWordDic {
 	private int sizeTree;
 	private String SLANG_ORIGIN = "slangword_data\\slang.txt";
 	private String SLANG_NEW = "slangword_data\\newslang.txt";
-	private String FILE_History = "history.txt";
+	private String FILE_History = "slangword_data\\history.txt";
 
 	// Hàm tạo của lớp SlangWordDic
 	private SlangWordDic() {
@@ -35,7 +35,7 @@ public class SlangWordDic {
 		return slw;
 	}
 
-	// // Hàm đọc file
+	// Hàm đọc file
 	void readFile(String file) throws Exception {
 		treemap.clear();
 		sizeTree = 0;
@@ -96,6 +96,7 @@ public class SlangWordDic {
 		}
 	}
 
+	// Hàm lấy dữ liệu
 	public String[][] getData() {
 		String[][] data = new String[sizeTree][3];
 		int rowIndex = 0;
@@ -226,6 +227,7 @@ public class SlangWordDic {
 		}
 	}
 
+	// Hàm edit Slang Word
 	public void editSlangWord(String oldSlang, String newSlang) {
 		if (treemap.containsKey(oldSlang)) {
 			List<String> meanings = treemap.get(oldSlang);
@@ -238,6 +240,7 @@ public class SlangWordDic {
 		}
 	}
 	
+	// Hàm edit definition của Slang Word
 	public void editDefinition(String slang, String oldMeaning, String newMeaning) {
 		if (treemap.containsKey(slang)) {
 			List<String> meanings = treemap.get(slang);
@@ -256,10 +259,12 @@ public class SlangWordDic {
 		}
 	}
 	
+	// Hàm kiểm tra tồn tại của Slang Word
 	public boolean checkExists(String slag) {
 		return treemap.containsKey(slag);
 	}
 	
+	// Hàm thêm 1 Slang Word
 	public void addSlangWord(String slang, String meaning, boolean overwrite) {
 		List<String> meaningList = treemap.get(slang);
 		if (meaningList == null || overwrite) {
@@ -271,6 +276,7 @@ public class SlangWordDic {
 		this.saveFile(SLANG_NEW);
 	}
 	
+	// Hàm xoá Slang Word
 	public void delete(String slang, String meaning) {
 		List<String> meaningList = treemap.get(slang);
 		if (meaningList != null) {
@@ -284,11 +290,13 @@ public class SlangWordDic {
 		}
 	}
 	
+	// Hàm reset file từ file origin
 	public void reset() throws Exception {
 		readFile(SLANG_ORIGIN);
 		this.saveFile(SLANG_NEW);
 	}
 	
+	// Hàm random Slang Word bất kì
 	public String[] random() {
 		// Random a number
 		int maximum = treemap.size();
@@ -308,9 +316,12 @@ public class SlangWordDic {
 		return s;
 	}
 	
+	// Hàm random 1 số bất kì từ minimum đến maximum
 	public static int randInt(int minimum, int maximum) {
 		return (minimum + (int) (Math.random() * maximum));
 	}
+
+	// Hàm tạo quiz cho 2 chức năng
 	public String[] quiz(int type) {
 		String s[] = new String[6];
 		String[] slangRandom = this.random();

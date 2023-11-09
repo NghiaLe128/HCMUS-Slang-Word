@@ -23,8 +23,6 @@ public class QuizFrame extends JFrame implements ActionListener {
         lblTitle.setFont(new Font("Gill Sans MT", Font.PLAIN, 35));
         lblTitle.setAlignmentX(CENTER_ALIGNMENT);
         lblTitle.setAlignmentY(-100);
-        //lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        //mainPanel.add(lblTitle, BorderLayout.NORTH);
 
         JPanel panelButtons = new JPanel();
         panelButtons.setLayout(new GridLayout(1, 2, 10, 10));

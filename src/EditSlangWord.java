@@ -22,7 +22,7 @@ public class EditSlangWord {
         frame.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        // Tiêu đề
+        // Title
         JLabel titleLabel = new JLabel("Edit Slang Word");
         titleLabel.setForeground(new Color(0, 102, 204));
         titleLabel.setFont(new Font("Arial", Font.BOLD, 40));
@@ -34,7 +34,7 @@ public class EditSlangWord {
         c.gridy = 0;
         frame.add(titleLabel, c);
 
-        // Label chọn tùy chọn
+        // Option
         JLabel label = new JLabel("Select an edit option:");
         label.setFont(new Font("Arial", Font.PLAIN, 20));
         c.gridwidth = 1;
@@ -49,7 +49,7 @@ public class EditSlangWord {
         c.gridy = 1;
         frame.add(editOption, c);
 
-        // Label và trường nhập Slang Word
+        // Slang Word
         JLabel slangWordLabel = new JLabel("Slang Word:");
         slangWordLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         c.gridx = 0;
@@ -61,7 +61,7 @@ public class EditSlangWord {
         c.gridy = 2;
         frame.add(slangWordField, c);
 
-        // Label và trường nhập Old Value (ban đầu ẩn)
+        // Old Value
         JLabel oldValueLabel = new JLabel("Old Value:");
         oldValueLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         oldValueLabel.setVisible(false);
@@ -75,7 +75,7 @@ public class EditSlangWord {
         c.gridy = 3;
         frame.add(oldValueField, c);
 
-        // Label và trường nhập New Value
+        // New Value
         JLabel newValueLabel = new JLabel("New Value:");
         newValueLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         c.gridx = 0;
@@ -124,7 +124,6 @@ public class EditSlangWord {
             }
         });
 
-        // Thêm ActionListener để xử lý sự kiện chọn tùy chọn
         editOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

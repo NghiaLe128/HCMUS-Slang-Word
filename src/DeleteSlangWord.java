@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.util.List;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class DeleteSlangWord extends JFrame implements ActionListener, ListSelec
         // Create panel for search bar
         JPanel searchPanel = new JPanel();
         searchField = new JTextField(40);
-        searchField.setPreferredSize(new Dimension(200, 30)); // Adjust the size
+        searchField.setPreferredSize(new Dimension(200, 30));
         searchButton = new JButton("Search");
         searchButton.addActionListener(this);
         searchPanel.add(searchField);
@@ -50,7 +51,7 @@ public class DeleteSlangWord extends JFrame implements ActionListener, ListSelec
         // Create panel for slang word table
         JPanel panelTable = new JPanel();
         panelTable.setBackground(Color.BLACK);
-        String column[] = { "STT", "Slag", "Meaning" };
+        String column[] = { "STT", "Slag Word", "Meaning" };
         model = new DefaultTableModel(column, 0);
         slangWordTable = new JTable(model);
         slangWordTable.setRowHeight(30);
@@ -65,9 +66,13 @@ public class DeleteSlangWord extends JFrame implements ActionListener, ListSelec
                     }
                     return c;
                 }
+                
             });
         }
-
+        JTableHeader header = slangWordTable.getTableHeader();
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
+	
         slangWordTable.getSelectionModel().addListSelectionListener(this);
         JScrollPane sp = new JScrollPane(slangWordTable);
         panelTable.setLayout(new BoxLayout(panelTable, BoxLayout.X_AXIS));
@@ -117,7 +122,7 @@ public class DeleteSlangWord extends JFrame implements ActionListener, ListSelec
                 }
             }
 
-            model.setRowCount(0); // Clear the table
+            model.setRowCount(0);
             addRowsToTable();
         }
     }

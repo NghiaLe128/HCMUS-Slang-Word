@@ -48,7 +48,7 @@ public class MenuController extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Menu Window");
         this.setSize(600, 500);
-        this.setLocationRelativeTo(null); // Center the frame
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

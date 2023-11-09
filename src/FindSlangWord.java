@@ -56,19 +56,24 @@ public class FindSlangWord extends JFrame implements ActionListener, TableModelL
 		tableModel = (DefaultTableModel) resultTable.getModel();
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-		resultTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-		resultTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-		resultTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+
+		for (int i = 0; i < resultTable.getColumnCount(); i++) {
+			resultTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+			
+			// Đặt renderer cho tiêu đề của cột
+			JTableHeader header = resultTable.getTableHeader();
+			header.setDefaultRenderer(centerRenderer);
+		}
+		
 		resultTable.getModel().addTableModelListener(this);
+
 		JScrollPane scrollPane = new JScrollPane(resultTable);
 		resultPanel.setLayout(new GridLayout(1, 1));
 		resultPanel.add(scrollPane);
 
 		// Back Button
-		JPanel bottomPanel = new JPanel();
 		backButton = new JButton("Back");
 		backButton.setFocusable(false);
-		bottomPanel.add(backButton);
 		backButton.addActionListener(this);
 		backButton.setAlignmentX(CENTER_ALIGNMENT);
 

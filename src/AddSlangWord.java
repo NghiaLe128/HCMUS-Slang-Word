@@ -15,47 +15,47 @@ public class AddSlangWord extends JFrame implements ActionListener {
         // Create and configure title label
         JLabel titleLabel = new JLabel("Add Slang Words");
         titleLabel.setForeground(Color.BLUE);
-        titleLabel.setFont(new Font("Gill Sans MT", Font.BOLD, 40)); // Increase font size and make it bold
+        titleLabel.setFont(new Font("Gill Sans MT", Font.BOLD, 40));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleLabel.setPreferredSize(new Dimension(400, 80)); // Increase label size
+        titleLabel.setPreferredSize(new Dimension(400, 80));
 
         // Create form panel
         JPanel form = new JPanel();
         form.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Increase insets for more spacing
+        gbc.insets = new Insets(10, 10, 10, 10); 
         gbc.gridx = 0;
         gbc.gridy = 0;
         JLabel labelForSlang = new JLabel("Slang word: ");
-        labelForSlang.setFont(new Font("Arial", Font.BOLD, 20)); // Increase font size and make it bold
-        labelForSlang.setPreferredSize(new Dimension(150, 30)); // Increase label size
+        labelForSlang.setFont(new Font("Arial", Font.BOLD, 20));
+        labelForSlang.setPreferredSize(new Dimension(150, 30)); 
         form.add(labelForSlang, gbc);
 
         gbc.gridx = 1;
         gbc.gridwidth = 2;
-        textFieldSlang = new JTextField(25); // Increase text field size
+        textFieldSlang = new JTextField(25); 
         form.add(textFieldSlang, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         JLabel labelForMeaning = new JLabel("Meaning: ");
-        labelForMeaning.setFont(new Font("Arial", Font.BOLD, 20)); // Increase font size and make it bold
-        labelForMeaning.setPreferredSize(new Dimension(150, 30)); // Increase label size
+        labelForMeaning.setFont(new Font("Arial", Font.BOLD, 20));
+        labelForMeaning.setPreferredSize(new Dimension(150, 30));
         form.add(labelForMeaning, gbc);
 
         gbc.gridx = 1;
         gbc.gridwidth = 2;
-        textFieldMeaning = new JTextField(25); // Increase text field size
+        textFieldMeaning = new JTextField(25);
         form.add(textFieldMeaning, gbc);
 
         // Button panel
         JPanel buttonPanel = new JPanel();
         btnBack = new JButton("Back");
         btnAdd = new JButton("Add");
-        btnBack.setFont(new Font("Arial", Font.BOLD, 20)); // Increase button font size and make it bold
-        btnAdd.setFont(new Font("Arial", Font.BOLD, 20)); // Increase button font size and make it bold
+        btnBack.setFont(new Font("Arial", Font.BOLD, 20));
+        btnAdd.setFont(new Font("Arial", Font.BOLD, 20)); 
 
         btnBack.addActionListener(this);
         btnAdd.addActionListener(this);
@@ -65,11 +65,11 @@ public class AddSlangWord extends JFrame implements ActionListener {
 
         // Set content
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-        container.add(Box.createRigidArea(new Dimension(0, 30))); // Increase top padding
+        container.add(Box.createRigidArea(new Dimension(0, 30)));
         container.add(titleLabel);
-        container.add(Box.createRigidArea(new Dimension(0, 30))); // Increase space after title
+        container.add(Box.createRigidArea(new Dimension(0, 30))); 
         container.add(form);
-        container.add(Box.createRigidArea(new Dimension(0, 30))); // Increase space before buttons
+        container.add(Box.createRigidArea(new Dimension(0, 30))); 
         container.add(buttonPanel);
 
         // Set Frame properties
@@ -77,7 +77,7 @@ public class AddSlangWord extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         pack();
-        setLocationRelativeTo(null); // Center the frame on the screen
+        setLocationRelativeTo(null);
     }
 
     @Override

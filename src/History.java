@@ -4,12 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class History extends JFrame implements ActionListener {
-    private JButton btnReturn, btnExit, btnClear, btnReset;
+    private JButton btnBack, btnExit, btnClear, btnReset;
     private SlangWordDic slangWord = SlangWordDic.getInstance();
     private DefaultTableModel tableModel;
-    private JTable jt;
+    private JTable resultTable;
 
     History() {
         // Frame setup
@@ -30,29 +31,35 @@ public class History extends JFrame implements ActionListener {
         String data[][] = slangWord.readHistory();
         String column[] = { "STT", "Slang Word", "Definition" };
         tableModel = new DefaultTableModel(data, column);
-        jt = new JTable(tableModel);
-        jt.setRowHeight(30);
+        resultTable = new JTable(tableModel);
+        resultTable.setRowHeight(30);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        jt.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        jt.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-        jt.setEnabled(false);
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        JScrollPane scrollPane = new JScrollPane(jt);
+		for (int i = 0; i < resultTable.getColumnCount(); i++) {
+			resultTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+			
+			// Đặt renderer cho tiêu đề của cột
+			JTableHeader header = resultTable.getTableHeader();
+			header.setDefaultRenderer(centerRenderer);
+		}
+        resultTable.setEnabled(false);
+
+        JScrollPane scrollPane = new JScrollPane(resultTable);
         add(scrollPane, BorderLayout.CENTER);
 
         // Buttons
         JPanel buttonPanel = new JPanel();
-        btnReturn = new JButton("Return");
+        btnBack = new JButton("Back");
         btnExit = new JButton("Exit");
         btnClear = new JButton("Clear");
         btnReset = new JButton("Reset");
-        btnReturn.addActionListener(this);
+        btnBack.addActionListener(this);
         btnExit.addActionListener(this);
         btnClear.addActionListener(this);
         btnReset.addActionListener(this);
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        buttonPanel.add(btnReturn);
+        buttonPanel.add(btnBack);
         buttonPanel.add(btnClear);
         buttonPanel.add(btnReset);
         buttonPanel.add(btnExit);
@@ -65,7 +72,7 @@ public class History extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnExit) {
             System.exit(0);
-        } else if (e.getSource() == btnReturn) {
+        } else if (e.getSource() == btnBack) {
             dispose();
             new MenuController();
         } else if (e.getSource() == btnClear) {

@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class Reset extends JFrame implements ActionListener, TableModelListener {
     private JButton btnBack;
@@ -32,7 +33,7 @@ public class Reset extends JFrame implements ActionListener, TableModelListener 
         // Create panel for slang word table
         JPanel panelTable = new JPanel();
         panelTable.setBackground(Color.BLACK);
-        String column[] = { "STT", "Slag", "Meaning" };
+        String column[] = { "STT", "Slang Word", "Meaning" };
         model = new DefaultTableModel(column, 0);
         slangWordTable = new JTable(model);
         slangWordTable.setRowHeight(30);
@@ -41,6 +42,10 @@ public class Reset extends JFrame implements ActionListener, TableModelListener 
         for (int i = 0; i < 3; i++) {
             slangWordTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
+
+        JTableHeader header = slangWordTable.getTableHeader();
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
         slangWordTable.getModel().addTableModelListener(this);
         JScrollPane sp = new JScrollPane(slangWordTable);
@@ -77,7 +82,6 @@ public class Reset extends JFrame implements ActionListener, TableModelListener 
         con.add(Box.createRigidArea(new Dimension(0, 20)));
         con.add(buttonPanel);
 
-        // Set JFrame properties
         setTitle("List Slang Words");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(700, 700);

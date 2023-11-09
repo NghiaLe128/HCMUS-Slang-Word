@@ -19,16 +19,19 @@ public class RandomSlangWord extends JFrame implements ActionListener {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
+        // Title
         JLabel titleLabel = new JLabel("Random Slang Word");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setForeground(Color.BLUE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Slang Word
         slangLabel = new JLabel("Slang: ");
         slangLabel.setFont(new Font("Arial", Font.BOLD, 36));
         slangLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         slangLabel.setPreferredSize(new Dimension(600, 50));
 
+        // Meaning
         meaningLabel = new JLabel("Meaning: ");
         meaningLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         meaningLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -41,6 +44,7 @@ public class RandomSlangWord extends JFrame implements ActionListener {
         randomButton.setFont(new Font("Arial", Font.BOLD, 24));
         randomButton.addActionListener(this);
 
+        // Back button
         backButton = new JButton("Back");
         backButton.setFont(new Font("Arial", Font.BOLD, 24));
         backButton.addActionListener(this);
