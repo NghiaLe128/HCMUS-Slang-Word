@@ -1,5 +1,7 @@
 Slag`Meaning
 #1`Number one
+#2`Number two
+#3`Number three
 $`Dollar| money
 $_$`Has money
 %)`Drunk| giddy
