@@ -3,10 +3,10 @@
 # ĐỒ ÁN #1 – SLANG WORD
 
 ## I. Thông tin sinh viên
-Mã số sinh viên: 21127116
-Họ và tên: Nguyễn Lê Thanh Nghĩa
-Lớp: 21KTPM2 | Trường KHTN, ĐHQG TP. HCM
-GV phụ trách: Nguyễn Văn Khiết (LT), Nguyễn Đức Huy (TG) Nguyễn Văn Vũ (TH)  <br>
+- Mã số sinh viên: 21127116
+- Họ và tên: Nguyễn Lê Thanh Nghĩa
+- Lớp: 21KTPM2 | Trường KHTN, ĐHQG TP. HCM
+- GV phụ trách: Nguyễn Văn Khiết (LT), Nguyễn Đức Huy (TG) Nguyễn Văn Vũ (TH)  <br>
 
 ## II. Vị trí tập tin
 - Source code: thư mục src
