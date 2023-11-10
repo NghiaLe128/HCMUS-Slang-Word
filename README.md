@@ -10,11 +10,12 @@ GV phụ trách: Nguyễn Văn Khiết (LT), Nguyễn Đức Huy (TG) Nguyễn V
 
 ## II. Vị trí tập tin
 - Source code: thư mục src
-- File jar: slangword_jar/HCMUS-Slang-Word.jar
+- File jar: HCMUS-Slang-Word.jar
 - Các file data: slangword_data/{slang, newslang, history}.txt
-- Hình chụp commit: commits/{Git-commits1, Git-commits2}.png
-- Clip youtube: 
-- Github:
+- Hình chụp commit: commits/{Git-commits1, Git-commits2, Git-commits3, Git-commits4}.png
+- File chấm điểm txt: point.txt
+- Clip youtube: https://youtu.be/dNXWUdAafzk?si=GW1cxysEFdZvtH5l
+- Github: https://github.com/NghiaLe128/HCMUS-Slang-Word.git
 
 ## III. Chấm điểm từng chức năng
 1. Chức năng tìm kiếm theo slang word. (hoàn thành 100%)
@@ -35,7 +36,6 @@ Tự đánh giá: 10/10
 *	TreeMap
 *	TreeSet
 *	LinkedList
-*	LinkedHashMap
 
 ## V. Tài liệu tham khảo
 Lý thuyết:
