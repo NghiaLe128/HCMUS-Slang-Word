@@ -7563,7 +7563,7 @@ YSI`You Stupid Idiot
 YSK`You Should Know
 YSL`Yves Saint Laurent
 YSMTU`You So Made That Up
-YSS`You Suck Severely
+YSS`You Go Girl
 YSVW`You're So Very Welcome
 YSYL`You Snooze, You Loose
 YT`Are you there?
