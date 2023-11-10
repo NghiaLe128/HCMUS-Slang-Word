@@ -227,38 +227,41 @@ public class SlangWordDic {
 		}
 	}
 
-	// Hàm edit Slang Word
-	public void editSlangWord(String oldSlang, String newSlang) {
+	public void editSlangWord(String oldSlang, String newSlang, boolean[] success) {
 		if (treemap.containsKey(oldSlang)) {
 			List<String> meanings = treemap.get(oldSlang);
 			treemap.remove(oldSlang); // Xóa Slang Word cũ
 			treemap.put(newSlang, meanings); // Thêm Slang Word mới với cùng nghĩa
 			this.saveFile(SLANG_NEW); // Lưu thay đổi vào tệp
 			System.out.println("Edit successful. Slang word updated.");
+			success[0] = true;
 		} else {
 			System.out.println("Slang word not found.");
+			success[0] = false;
 		}
 	}
 	
-	// Hàm edit definition của Slang Word
-	public void editDefinition(String slang, String oldMeaning, String newMeaning) {
+	public int editDefinition(String slang, String oldMeaning, String newMeaning) {
 		if (treemap.containsKey(slang)) {
 			List<String> meanings = treemap.get(slang);
 			for (int i = 0; i < meanings.size(); i++) {
-				String meaning = meanings.get(i).trim().toLowerCase(); // Chuyển đổi thành chữ thường và loại bỏ khoảng trắng
+				String meaning = meanings.get(i).trim().toLowerCase();
 				if (meaning.equals(oldMeaning.trim().toLowerCase())) {
 					meanings.set(i, newMeaning);
 					saveFile(SLANG_NEW);
 					System.out.println("Edit successful. Definition updated.");
-					return;
+					return 0; // Edit thành công
 				}
 			}
 			System.out.println("Old meaning not found.");
+			return 1; // Old meaning không đúng
 		} else {
 			System.out.println("Slang word not found.");
+			return 2; // Slang Word không tồn tại
 		}
 	}
 	
+
 	// Hàm kiểm tra tồn tại của Slang Word
 	public boolean checkExists(String slag) {
 		return treemap.containsKey(slag);

@@ -97,18 +97,35 @@ public class EditSlangWord {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String editOptionValue = (String) editOption.getSelectedItem();
-                String Word = slangWordField.getText();
+                String word = slangWordField.getText();
                 String oldValue = oldValueField.getText();
                 String newValue = newValueField.getText();
 
-                if (editOptionValue.equals("Edit Word")) {
-                    slangWord.editSlangWord(Word, newValue);
+                if (editOptionValue.equals("Edit Word")) 
+                {
+                    boolean[] editSuccess = new boolean[1];
+                    slangWord.editSlangWord(word, newValue, editSuccess);
+                     if (editSuccess[0]) {
+                        JOptionPane.showMessageDialog(frame, "Edit successful!");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Error: Edit failed!");
+                    }
                 } else if (editOptionValue.equals("Edit Definition")) {
-                    slangWord.editDefinition(Word, oldValue, newValue);
-                }
+                    int editResult = slangWord.editDefinition(word, oldValue, newValue);
 
+                    if (editResult == 0) {
+                        JOptionPane.showMessageDialog(frame, "Edit successful!");
+                    } else if (editResult == 1) {
+                        JOptionPane.showMessageDialog(frame, "Error: Old meaning not found!");
+                    } else if (editResult == 2) {
+                        JOptionPane.showMessageDialog(frame, "Error: Slang word not found!");
+}
+                }
+                
+                
             }
         });
+        
 
         // Button Return
         returnButton = new JButton("Return");
