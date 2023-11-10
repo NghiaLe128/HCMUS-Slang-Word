@@ -1,7 +1,5 @@
 Slag`Meaning
 #1`Number one
-#2`Number two
-#3`Number three
 $`Dollar| money
 $_$`Has money
 %)`Drunk| giddy
@@ -7480,7 +7478,6 @@ YEZZER`Yes Sir
 YF`Your Friend
 YFW`Your Face When ...
 YG`Young Gangster
-YGG`You Go Girl
 YGI`You Got It
 YGLT`You're Gonna Love This
 YGM`You Get Me?| You've Got Mail
