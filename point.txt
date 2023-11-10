@@ -10,3 +10,5 @@ Chức năng đố vui, chương trình hiển thị 1 random slang word, với 
 Chức năng đố vui, chương trình hiển thị 1 definition, với 4 slang words đáp án cho người dùng chọn (hoàn thành 100%)
 Số chức năng hoàn thành: 10/10 
 Tự đánh giá: 10/10
+- Clip youtube: https://youtu.be/dNXWUdAafzk?si=GW1cxysEFdZvtH5l
+- Github: https://github.com/NghiaLe128/HCMUS-Slang-Word.git
